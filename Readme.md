@@ -18,7 +18,11 @@ npm run start
 
 ## Heroku cloud deployed version
 
-If you want to view the project without having to install it locally, you can access the version deployed in Heroku [clicking here!](https://app-interactivas-backend.herokuapp.com/)
+If you want to view the project without having to install it locally, you can access the version deployed in Heroku [clicking here!](https://interactivas-backend.herokuapp.com/)
+
+## API Docs
+
+If you want to view the API documentation [click here!](https://interactivas-backend.herokuapp.com/api-docs/)
 
 ## Authors
 - Lautaro Mitelman
