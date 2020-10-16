@@ -22,9 +22,9 @@ const UserSchema = Schema({
 })
 
 // Esto permite no enviar datos del Schema en la response
-// en este caso, enviamos todo menos el __v, el _id y la password.
+// en este caso, enviamos todo menos el __v y la password.
 UserSchema.method('toJSON', function() {
-    const { __v, password, ...object} = this.toObject();
+    const { __v, password, ...object } = this.toObject();
     return object;
 });
 
