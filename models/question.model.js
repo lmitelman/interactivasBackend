@@ -9,10 +9,10 @@ const QuestionSchema = Schema({
         type: String,
         required: true
     },
-    sectors: {
-        type: Array,
+    sectors: [{
+        type: String,
         required: true
-    },
+    }],
     options: {
         type: Array
     },

@@ -1,14 +1,38 @@
 const { Schema, model } = require('mongoose');
 
+const QuestionSchema = Schema({ 
+    question: {
+        type: String,
+        required: true
+    },
+    questionType: {
+        type: String,
+        enum: ['Text', 'Multiple choice'],
+        required: true
+    },
+    options: [{
+        type: String
+    }],
+    referenceSmallBusiness: {
+        type: String
+    },
+    referenceMediumBusiness: {
+        type: String
+    }
+});
+
 const FormSchema = Schema({
     name: {
         type: String,
         required: true
     },
+    sectors: [{
+        type: String,
+        required: true
+    }],
     questionList: {
-        type: Schema.Types.ObjectId,
-        ref: 'Question',
-        required: true,
+        type: [ QuestionSchema ],
+        required: true
     }
 })
 

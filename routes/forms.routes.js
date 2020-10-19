@@ -26,6 +26,10 @@ router.delete('/deleteForm/:id',
 router.post('/createForm',
     [
         validateJWT,
+        check('name').not().isEmpty(),
+        check('questionList').isArray(),
+        check('sectors').isArray(),
+        validarCampos
     ],
     createForm
 );
