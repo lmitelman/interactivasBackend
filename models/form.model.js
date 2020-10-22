@@ -30,10 +30,7 @@ const FormSchema = Schema({
         type: String,
         required: true
     }],
-    questionList: {
-        type: [ QuestionSchema ],
-        required: true
-    }
+    questionList: [ QuestionSchema ]
 })
 
 // Esto permite no enviar datos del Schema en la response
