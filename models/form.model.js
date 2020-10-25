@@ -26,7 +26,10 @@ const FormSchema = Schema({
         type: String,
         required: true
     },
-    sector: String,
+    sector: {
+        type: String,
+        required: true
+    },
     questionList: [ QuestionSchema ]
 })
 

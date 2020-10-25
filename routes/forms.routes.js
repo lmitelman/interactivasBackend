@@ -28,7 +28,7 @@ router.post('/createForm',
         validateJWT,
         check('name').not().isEmpty(),
         check('questionList').isArray(),
-        check('sectors').isArray(),
+        check('sector').not().isEmpty(),
         validarCampos
     ],
     createForm
