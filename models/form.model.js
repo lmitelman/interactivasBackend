@@ -26,7 +26,7 @@ const FormSchema = Schema({
         type: String,
         required: true
     },
-    sectors: {
+    sector: {
         type: String,
         required: true
     },
