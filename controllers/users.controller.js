@@ -20,6 +20,39 @@ const getUsers = async (req, res = response) => {
     }
 }
 
+ /**
+  * Sirve para obtener el rol del usuario
+  * @param {email} req 
+  * @param {user} res 
+  */
+
+ const getMe = async (req, res) => {
+    const { email } = req.body;
+    try {
+        const isEmailRegistered = await User.findOne({ email });
+        if (isEmailRegistered) {
+            res.status(200).json({
+                ok: true,
+                method: 'getMe',
+                user: isEmailRegistered
+            });
+        } else {
+            res.status(404).json({
+                ok: false,
+                method: 'getMe',
+                msg: 'Not found'
+            })
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            method: 'createUser',
+            msg: 'An unexpected error has occurred.'
+        });
+    }
+ }
+
 const createUser = async (req, res = response) => {
     const { email, password } = req.body;
     try {
@@ -117,5 +150,6 @@ module.exports = {
     getUsers,
     createUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    getMe,
 }
