@@ -10,9 +10,9 @@ const { validateJWT } = require('../middlewares/validate-jwt');
 const router = Router();
 
 router.get('/getForms',
-    [
-        validateJWT
-    ],
+    // [
+    //     validateJWT
+    // ],
     getForms
 );
 
