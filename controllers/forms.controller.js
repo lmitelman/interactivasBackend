@@ -67,9 +67,37 @@ const deleteForm = async (req, res = response) => {
     }
 }
 
+const getForm = async (req, res = response) => {
+    const _id = req.params.id;
+    try {
+        const isExistingForm = await Form.findById(_id);
+        if (!isExistingForm) {
+            return res.status(404).json({
+                ok: false,
+                method: 'getForm',
+                msg: `Form with id ${_id} does not exist.`
+            });
+        } else {
+            res.json({
+                ok: true,
+                method: 'getForm',
+                form: isExistingForm
+            });
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            method: 'deleteForm',
+            msg: 'An unexpected error has occurred.'
+        });
+    }
+}
+
 
 module.exports = {
     getForms,
     deleteForm,
-    createForm
+    createForm,
+    getForm
 }
