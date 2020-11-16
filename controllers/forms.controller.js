@@ -21,6 +21,7 @@ const getForms = async (req, res = response) => {
 
 const createForm = async (req, res = response) => {
     console.log(req.body);
+    req.body.status = "published";
     const form = new Form(req.body);
     try {
         await form.save(req.body);
