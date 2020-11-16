@@ -3,6 +3,24 @@ const Form = require('../models/form.model.js');
 
 const getForms = async (req, res = response) => {
     try {
+        const forms = await Form.find();
+        res.json({
+            ok: true,
+            method: 'getForms',
+            forms: forms
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            method: 'getForms',
+            msg: 'An unexpected error has occurred.'
+        });
+    }
+}
+
+const getPublishedForms = async (req, res = response) => {
+    try {
         const forms = await Form.find({status: "published"});
         res.json({
             ok: true,
