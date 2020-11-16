@@ -30,6 +30,10 @@ const FormSchema = Schema({
         type: String,
         required: true
     },
+    status: {
+        type: String,
+        enum: ['published', 'hidden'],
+    },
     questionList: [ QuestionSchema ]
 })
 
