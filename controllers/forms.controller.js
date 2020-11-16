@@ -161,5 +161,6 @@ module.exports = {
     deleteForm,
     createForm,
     getForm,
-    switchFormStatus
+    switchFormStatus,
+    getPublishedForms
 }

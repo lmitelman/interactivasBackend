@@ -4,7 +4,7 @@
 
 const { Router } = require('express');
 const { check } = require('express-validator');
-const { getForms, getForm, createForm, deleteForm, switchFormStatus } = require('../controllers/forms.controller');
+const { getForms, getForm, createForm, deleteForm, switchFormStatus, getPublishedForms } = require('../controllers/forms.controller');
 const { validarCampos } = require('../middlewares/validar-campos');
 const { validateJWT } = require('../middlewares/validate-jwt');
 const router = Router();
@@ -15,6 +15,10 @@ router.get('/getForms',
 
 router.get('/getForm/:id',
     getForm
+);
+
+router.get('/getPublishedForms',
+    getPublishedForms
 );
 
 router.delete('/deleteForm/:id',
