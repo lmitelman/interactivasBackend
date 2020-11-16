@@ -3,7 +3,7 @@ const Form = require('../models/form.model.js');
 
 const getForms = async (req, res = response) => {
     try {
-        const forms = await Form.find();
+        const forms = await Form.find({status: "published"});
         res.json({
             ok: true,
             method: 'getForms',
