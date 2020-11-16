@@ -88,16 +88,59 @@ const getForm = async (req, res = response) => {
         console.log(error);
         res.status(500).json({
             ok: false,
-            method: 'deleteForm',
+            method: 'getForm',
             msg: 'An unexpected error has occurred.'
         });
     }
 }
 
+const switchFormStatus = async (req, res = response) => {
+    const _id = req.params.id;
+    try {
+        const isExistingForm = await Form.findById(_id);
+        if (!isExistingForm) {
+            return res.status(404).json({
+                ok: false,
+                method: 'switchFormStatus',
+                msg: `Form with id ${_id} does not exist.`
+            });
+        } else {
+            if (isExistingForm.status == "hidden") {
+                const updatedForm = await User.findByIdAndUpdate(_id, {
+                    status: "published",
+                }, { new: true })
+                res.json({
+                    ok: true,
+                    method: 'switchFormStatus',
+                    msg: `Form with id ${_id} switched to published.`,
+                    updatedForm: updatedForm
+                });
+            } else if (isExistingForm.status == "published") {
+                const updatedForm = await User.findByIdAndUpdate(_id, {
+                    status: "hidden",
+                }, { new: true })
+                res.json({
+                    ok: true,
+                    method: 'switchFormStatus',
+                    msg: `Form with id ${_id} switched to hidden.`,
+                    updatedForm: updatedForm
+                });
+            }    
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            method: 'switchFormStatus',
+            msg: 'An unexpected error has occurred.'
+        });
+    }
+}
 
 module.exports = {
     getForms,
     deleteForm,
     createForm,
-    getForm
+    getForm,
+    switchFormStatus
 }
