@@ -107,7 +107,7 @@ const switchFormStatus = async (req, res = response) => {
             });
         } else {
             if (isExistingForm.status == "hidden") {
-                const updatedForm = await User.findByIdAndUpdate(_id, {
+                const updatedForm = await Form.findByIdAndUpdate(_id, {
                     status: "published",
                 }, { new: true })
                 res.json({
@@ -117,7 +117,7 @@ const switchFormStatus = async (req, res = response) => {
                     updatedForm: updatedForm
                 });
             } else if (isExistingForm.status == "published") {
-                const updatedForm = await User.findByIdAndUpdate(_id, {
+                const updatedForm = await Form.findByIdAndUpdate(_id, {
                     status: "hidden",
                 }, { new: true })
                 res.json({
