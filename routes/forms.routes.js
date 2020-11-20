@@ -38,6 +38,8 @@ router.post('/switchFormStatus/:id',
 router.post('/sendEmail',
     [
         check('email').not().isEmpty(),
+        check('data').not().isEmpty(),
+        validarCampos
     ],
     sendEmail
 );

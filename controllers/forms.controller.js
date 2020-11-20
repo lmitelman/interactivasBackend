@@ -1,6 +1,12 @@
 const { response } = require("express");
 const Form = require('../models/form.model.js');
 const nodemailer = require("nodemailer");
+const sgTransport = require('nodemailer-sendgrid-transport');
+const transporter = nodemailer.createTransport(sgTransport({
+    auth: {
+        api_key: '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'
+    }
+}));
 
 
 const getForms = async (req, res = response) => {
@@ -41,7 +47,7 @@ const getPublishedForms = async (req, res = response) => {
 
 const createForm = async (req, res = response) => {
     console.log(req.body);
-    req.body.status = "published";
+    req.body.status = "hidden";
     const form = new Form(req.body);
     try {
         await form.save(req.body);
@@ -161,38 +167,19 @@ const switchFormStatus = async (req, res = response) => {
 const sendEmail = async (req, res = response) => {
     const { email } = req.body;
     try {
-        // Generate test SMTP service account from ethereal.email
-        // Only needed if you don't have a real mail account for testing
-        let testAccount = await nodemailer.createTestAccount();
-
-        // create reusable transporter object using the default SMTP transport
-        let transporter = nodemailer.createTransport({
-            host: "smtp.ethereal.email",
-            port: 587,
-            secure: false, // true for 465, false for other ports
-            auth: {
-                user: "nathen.schneider37@ethereal.email", // generated ethereal user
-                pass: "8CUgbZahKtYQnCZnEy", // generated ethereal password
-            },
+        await transporter.sendMail({
+            to: email,
+            from: 'lmitelman@uade.edu.ar',
+            subject: 'FUNDACIÓN OBSERVATORIO PYME',
+            html: `
+            <b>Muchas gracias por responder a nuestro formulario: </b>
+            <p>Podrás encontrar mas formularios de encuestas en <b>https://api-frontend.vercel.app/benchmarking</b></p>
+            `
         });
-
-        // send mail with defined transport object
-        let info = await transporter.sendMail({
-            from: '"Fred Foo 👻" <foo@example.com>', // sender address
-            to: "bar@example.com, baz@example.com", // list of receivers
-            subject: "Hello ✔", // Subject line
-            text: "Hello world?", // plain text body
-            html: "<b>Hello world?</b>", // html body
-        });
-
-        console.log("Message sent: %s", info.messageId);
-        // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-
-        // Preview only available when sending through an Ethereal account
-        console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-        // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+        console.log('Email sent!');
     } catch (error) {
         console.log(error);
+        res.status(500);
     }
 }
 

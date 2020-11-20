@@ -40,6 +40,9 @@ const FormSchema = Schema({
         type: String,
         required: true
     },
+    author: {
+        type: String
+    },
     status: {
         type: String,
         enum: ['published', 'hidden'],
