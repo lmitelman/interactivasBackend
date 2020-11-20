@@ -1,5 +1,17 @@
 const { Schema, model } = require('mongoose');
 
+const OptionSchema = Schema({
+    value: {
+        type: String,
+        required: true
+    },
+    type: {
+        type: String,
+        enum: ["higher", "lower", "equal"],
+        required: true
+    }
+});
+
 const QuestionSchema = Schema({ 
     question: {
         type: String,
@@ -10,9 +22,7 @@ const QuestionSchema = Schema({
         enum: ['Text', 'Multiple choice'],
         required: true
     },
-    options: [{
-        type: String
-    }],
+    options: [ OptionSchema ],
     referenceSmallBusiness: {
         type: String
     },
@@ -35,7 +45,7 @@ const FormSchema = Schema({
         enum: ['published', 'hidden'],
     },
     questionList: [ QuestionSchema ]
-})
+});
 
 // Esto permite no enviar datos del Schema en la response
 // en este caso, enviamos todo menos el __v.

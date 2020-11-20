@@ -4,7 +4,7 @@
 
 const { Router } = require('express');
 const { check } = require('express-validator');
-const { getForms, getForm, createForm, deleteForm, switchFormStatus, getPublishedForms } = require('../controllers/forms.controller');
+const { getForms, getForm, createForm, deleteForm, switchFormStatus, getPublishedForms, sendEmail } = require('../controllers/forms.controller');
 const { validarCampos } = require('../middlewares/validar-campos');
 const { validateJWT } = require('../middlewares/validate-jwt');
 const router = Router();
@@ -33,6 +33,13 @@ router.post('/switchFormStatus/:id',
         validateJWT
     ],
     switchFormStatus
+);
+
+router.post('/sendEmail',
+    [
+        check('email').not().isEmpty(),
+    ],
+    sendEmail
 );
 
 
