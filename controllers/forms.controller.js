@@ -165,18 +165,22 @@ const switchFormStatus = async (req, res = response) => {
 }
 
 const sendEmail = async (req, res = response) => {
-    const { email } = req.body;
+    const { email, nombreForm } = req.body;
     try {
         await transporter.sendMail({
-            to: email,
+            to: 'lautaromitelman@gmail.com',
             from: 'lmitelman@uade.edu.ar',
             subject: 'FUNDACIÓN OBSERVATORIO PYME',
             html: `
-            <b>Muchas gracias por responder a nuestro formulario: </b>
+            <b>Muchas gracias por responder a nuestro formulario </b>
             <p>Podrás encontrar mas formularios de encuestas en <b>https://api-frontend.vercel.app/benchmarking</b></p>
             `
         });
-        console.log('Email sent!');
+        return res.status(200).json({
+            ok: true,
+            method: 'sendEmail',
+            msg: "Email sent!"
+        })
     } catch (error) {
         console.log(error);
         res.status(500);

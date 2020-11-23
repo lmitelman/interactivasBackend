@@ -1,17 +1,5 @@
 const { Schema, model } = require('mongoose');
 
-const OptionSchema = Schema({
-    value: {
-        type: String,
-        required: true
-    },
-    type: {
-        type: String,
-        enum: ["higher", "lower", "equal"],
-        required: true
-    }
-});
-
 const QuestionSchema = Schema({ 
     question: {
         type: String,
@@ -22,7 +10,7 @@ const QuestionSchema = Schema({
         enum: ['Text', 'Multiple choice'],
         required: true
     },
-    options: [ OptionSchema ],
+    options: [ String ],
     referenceSmallBusiness: {
         type: String
     },
