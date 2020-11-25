@@ -38,7 +38,7 @@ router.post('/switchFormStatus/:id',
 router.post('/sendEmail',
     [
         check('email').not().isEmpty(),
-        check('nombreForm').not().isEmpty(),
+        check('formName').not().isEmpty(),
         validarCampos
     ],
     sendEmail

@@ -1,12 +1,13 @@
 const { response } = require("express");
 const Form = require('../models/form.model.js');
 const nodemailer = require("nodemailer");
-const sgTransport = require('nodemailer-sendgrid-transport');
-const transporter = nodemailer.createTransport(sgTransport({
+const transporter = nodemailer.createTransport({
+    service: "gmail",
     auth: {
-        api_key: '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'
+        user: process.env.EMAIL,
+        pass: process.env.PASS
     }
-}));
+})
 
 
 const getForms = async (req, res = response) => {
@@ -165,14 +166,21 @@ const switchFormStatus = async (req, res = response) => {
 }
 
 const sendEmail = async (req, res = response) => {
-    const { email, nombreForm } = req.body;
+    const { email, formName, results } = req.body;
+    var str = '<ul>'
+    results.forEach(function (result) {
+        str += '<li>' + `<b>Pregunta:</b> ${result.question} <br> <b>Respuesta:</b> ${result.result}` + '</li>';
+    });
+    str += '</ul>';
     try {
         await transporter.sendMail({
-            to: 'lautaromitelman@gmail.com',
-            from: 'lmitelman@uade.edu.ar',
+            to: email,
+            from: 'observatorio.pyme2020@gmail.com',
             subject: 'FUNDACIÓN OBSERVATORIO PYME',
             html: `
-            <b>Muchas gracias por responder a nuestro formulario </b>
+            <b>Muchas gracias por responder a nuestro formulario ${formName}</b>
+            <br>
+            ${str}
             <p>Podrás encontrar mas formularios de encuestas en <b>https://api-frontend.vercel.app/benchmarking</b></p>
             `
         });
