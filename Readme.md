@@ -14,7 +14,7 @@ Use the [node package manager](https://www.npmjs.com/) commands after clone the 
 npm install
 ```
 
-Once the dependencies are installed, use this command to run the server on the default 3000 port.
+Once the dependencies are installed, use this command to run the server on the default 3002 port.
 
 ```bash
 npm run start
